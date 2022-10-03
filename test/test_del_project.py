@@ -4,7 +4,7 @@ from model.project import Project
 import random
 
 def test_del_project(app):
-    app.session.login("administrator", "root")  # Креды брать откуда-то возможно
+    app.session.login("administrator", "root")
     app.project.go_to_manage_project()
     #chose project
     projects = app.project.get_projects_list()

@@ -42,7 +42,6 @@ class ProjectHelper:
             link = a.get_attribute('href')
             if link.count('manage_proj_edit_page') != 0:
                 list.append(a)
-        #print(list)
         return(list)
 
     def del_project_by_link(self, project_link):
