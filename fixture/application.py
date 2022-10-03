@@ -2,7 +2,7 @@ __author__ = 'id301'
 
 from selenium import webdriver
 from fixture.session import SessionHelper
-
+from fixture.project import ProjectHelper
 
 class Application:
 
@@ -16,6 +16,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(2)
+        self.project = ProjectHelper(self)
         self.session = SessionHelper(self)
         self.base_url = base_url
 
