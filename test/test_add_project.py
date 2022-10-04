@@ -4,6 +4,5 @@ from model.project import Project
 
 def test_add_project(app):
     app.session.login("administrator", "root")
-    app.project.go_to_manage_project()
-    app.project.add_project(Project(name='Test project2', status='release', view_status='private',
+    app.project.add_project(Project(name='Test project3', status='release', view_status='private',
                                     description='test descr', inherit_global_categories=True))

@@ -15,6 +15,7 @@ class ProjectHelper:
 
     def add_project(self, project):
         wd = self.app.wd
+        self.go_to_manage_project()
         wd.find_element_by_xpath('//input[@value="Create New Project"]').click()
         #fill project name and decription
         self.change_field_value("name", project.name)
@@ -34,18 +35,34 @@ class ProjectHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def get_projects_list(self):
+    def get_projects_link_list(self):
         wd = self.app.wd
         self.go_to_manage_project()
         list = []
         for a in wd.find_elements_by_xpath("//a[@href]"):
             link = a.get_attribute('href')
             if link.count('manage_proj_edit_page') != 0:
-                list.append(a)
+                list.append(link)
         return(list)
 
-    def del_project_by_link(self, project_link):
+    def get_projects_list(self):
         wd = self.app.wd
-        project_link.click()
+        lst = []
+        links_count = len(self.get_projects_link_list()) #due to StaleElementReferenceException
+        for link in self.get_projects_link_list():
+            wd.get(link)
+            name = wd.find_element_by_name('name').get_attribute("value")
+            status = wd.find_element_by_xpath('//select[@name="status"]/option[@selected="selected"]').text
+            view_status = wd.find_element_by_xpath('//select[@name="view_state"]/option[@selected="selected"]').text
+            description = wd.find_element_by_name('description').text
+            inherit_global_categories = True if wd.find_element_by_name('inherit_global').get_attribute("checked") == 'true' else False
+            lst.append(Project(name=name, status=status, view_status=view_status,
+                                    description=description, inherit_global_categories=inherit_global_categories, link=link))
+        self.go_to_manage_project()
+        return lst
+
+    def del_project(self, project):
+        wd = self.app.wd
+        wd.get(project.link)
         wd.find_element_by_xpath('//input[@value="Delete Project"]').click()
         wd.find_element_by_xpath('//input[@value="Delete Project"]').click()
