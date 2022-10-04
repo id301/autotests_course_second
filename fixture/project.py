@@ -27,6 +27,7 @@ class ProjectHelper:
         wd.find_element_by_xpath("//select[@name='status']/option[text() = '%s']" % project.status).click()
         wd.find_element_by_xpath("//select[@name='view_state']/option[text() = '%s']" % project.view_status).click()
         wd.find_element_by_css_selector('input.button').click()
+        return
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -48,7 +49,6 @@ class ProjectHelper:
     def get_projects_list(self):
         wd = self.app.wd
         lst = []
-        links_count = len(self.get_projects_link_list()) #due to StaleElementReferenceException
         for link in self.get_projects_link_list():
             wd.get(link)
             name = wd.find_element_by_name('name').get_attribute("value")

@@ -13,3 +13,9 @@ class Project:
     def __repr__(self):
         return f"{self.name};{self.status};{self.view_status};{self.description};{self.inherit_global_categories};" \
                f"{self.link}"
+
+    def __eq__(self, other):
+        return self.name == other.name and (self.link == other.link or self.link is None or other.link is None)
+
+    def get_name(self):
+        return self.name
