@@ -4,7 +4,6 @@ from model.project import Project
 import random
 
 def test_del_project(app):
-    app.session.login("administrator", "root")
     old_projects = app.project.get_projects_list()
     projects = app.project.get_projects_list()
     if len(projects) == 0:
