@@ -22,7 +22,7 @@ class ProjectHelper:
         self.change_field_value("description", project.description)
         #fill checkbox if needed
         if not project.inherit_global_categories:
-            self.wd.find_element_by_name("inherit_global").click()
+            wd.find_element_by_name("inherit_global").click()
         #chose list`s values
         wd.find_element_by_xpath("//select[@name='status']/option[text() = '%s']" % project.status).click()
         wd.find_element_by_xpath("//select[@name='view_state']/option[text() = '%s']" % project.view_status).click()
