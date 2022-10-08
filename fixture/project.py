@@ -66,3 +66,9 @@ class ProjectHelper:
         wd.get(project.link)
         wd.find_element_by_xpath('//input[@value="Delete Project"]').click()
         wd.find_element_by_xpath('//input[@value="Delete Project"]').click()
+
+    def convert_ProjectData_list_to_Project_list(self, pd_list):
+        p_list = []
+        for project in pd_list:
+            p_list.append(Project(name=project['name'], id=project['id']))
+        return p_list
